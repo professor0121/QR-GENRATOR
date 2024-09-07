@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        .container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .inputurl {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .inputurl:focus {
+            border-color: #74ebd5;
+            outline: none;
+        }
+
+        .submit {
+            background-color: #74ebd5;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        .submit:hover {
+            background-color: #5dc1b9;
+            transform: scale(1.05);
+        }
+
+        .submit:active {
+            transform: scale(0.98);
+        }
+
+        .qr {
+            margin-top: 20px;
+            width: 100%;
+            height: auto;
+            display: none;
+            border-radius: 8px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>QR Generator</h1>
+        <input type="text" class="inputurl" placeholder="Enter URL">
+        <button class="submit" onclick="generateQR()">Generate QR</button>
+        <img src="" alt="QR Code" class="qr" id="qrImage">
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.4.4/qrcode.js" integrity="sha512-oxrVyBhqnzQ0BzuM0A/6dEIk0alz0p4SpDRaWvtuUoarIc8rnL5lVniHG5Dp21MRFojcQcmKHjaskNXhSaUPPw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function generateQR() {
+            const url = document.querySelector('.inputurl').value;
+            if (url) {
+                const qrCodeContainer = document.getElementById('qrImage');
+                QRCode.toDataURL(url, { width: 350, margin: 2 }, function (err, url) {
+                    qrCodeContainer.src = url;
+                    qrCodeContainer.style.display = 'block';
+                });
+            } else {
+                alert('Please enter a valid URL');
+            }
+        }
+    </script>
+</body>
+
+</html>
